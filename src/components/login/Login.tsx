@@ -18,8 +18,8 @@ const Login = () => {
             {error && <p className="error">{error.message}</p>}
             <Formik
                 initialValues={{
-                    email: 'user@ozitag.com',
-                    password: 'user',
+                    email: '',
+                    password: '',
                 }}
                 validate={(values) => {
                     const errors: Partial<Credentials> = {};
