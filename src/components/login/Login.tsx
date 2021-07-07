@@ -1,12 +1,14 @@
 import React from 'react';
 import 'antd/dist/antd.css'
 import {getAuth} from '../../redux/auth-reducer/auth-selector';
-import {Formik} from 'formik';
+import {Field, Form, Formik} from 'formik';
 import {Credentials, logInTC} from '../../redux/auth-reducer/auth-reducer';
-import {Button, Form, Input} from 'antd';
+import {Button, Typography} from 'antd';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
-import style from './login.module.css'
-import {Typography} from 'antd';
+import style from './login.module.scss'
+import {Email, Password} from '../../common/components/Form';
+
+
 
 const Login = () => {
     const {Title} = Typography;
@@ -18,8 +20,8 @@ const Login = () => {
             {error && <p className="error">{error.message}</p>}
             <Formik
                 initialValues={{
-                    email: '',
-                    password: '',
+                    email: 'user@ozitag.com',
+                    password: 'user',
                 }}
                 validate={(values) => {
                     const errors: Partial<Credentials> = {};
@@ -39,27 +41,20 @@ const Login = () => {
                 {({submitForm}) => (
                     <Form className={style.form}>
                         <Title level={3}>Log in</Title>
-                        <Form.Item
-                            label="Username"
-                            name="username"
-                            initialValue="user@ozitag.com"
-                            rules={[{required: true, message: 'Please input your username!'}]}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 16}}
-                        >
-                            <Input/>
-                        </Form.Item>
-
-                        <Form.Item
+                        <Field
+                            component={Email}
+                            name="email"
+                            type="email"
+                            label="Email"
+                            variant="outlined"
+                        />
+                        <Field
+                            component={Password}
+                            type="password"
                             label="Password"
-                            initialValue="user"
                             name="password"
-                            rules={[{required: true, message: 'Please input your password!'}]}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 16}}
-                        >
-                            <Input.Password/>
-                        </Form.Item>
+                            variant="outlined"
+                        />
                         <Button type="primary"
                                 htmlType="submit"
                                 onClick={submitForm}

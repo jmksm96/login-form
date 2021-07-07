@@ -1,0 +1,11 @@
+@import "src/common/mixin/mixin";
+
+.container {
+  @include flex(column, center, center);
+  margin-top: 30px;
+
+  .form {
+    width: 300px;
+  }
+}
+

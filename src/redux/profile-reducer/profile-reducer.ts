@@ -1,4 +1,5 @@
 import {User} from '../auth-reducer/auth-reducer'
+import api from '../../api/api';
 
 const initialState: ProfileStateT = {
     loading: false,
@@ -66,5 +67,19 @@ export const getProfileFailure = (error: Error | null) => {
         payload: error,
     } as const
 }
+
+//thunks
+
+export const getProfileTC = () => {
+    return async (dispatch: any) => {
+        try {
+            const user = await api.getUserProfile()
+            dispatch(getProfileSuccess(user.data))
+        } catch (error) {
+            dispatch(getProfileFailure(error))
+        }
+    }
+}
+
 
 export default profileReducer
