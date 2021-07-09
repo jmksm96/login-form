@@ -1,22 +1,13 @@
 import axios from 'axios'
 import {TokenT} from '../redux/auth-reducer/auth-reducer'
 
-// const settings = {
-//     baseUrl: 'https://tager.dev.ozitag.com/api',
-//     headers: {
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//     }
-// }
-
-// const instance = axios.create(settings)
-
 const instance = axios.create({
     baseURL: 'https://tager.dev.ozitag.com/api',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-    }})
+    }
+})
 
 instance.interceptors.request.use(
     (config) => {

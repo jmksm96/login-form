@@ -9,7 +9,6 @@ import style from './login.module.scss'
 import {Email, Password} from '../../common/components/Form';
 
 
-
 const Login = () => {
     const {Title} = Typography;
     const dispatch = useDispatch()
