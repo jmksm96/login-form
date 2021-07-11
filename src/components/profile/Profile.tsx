@@ -2,7 +2,10 @@ import React, {useEffect} from 'react';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {getProfile} from '../../redux/profile-reducer/profile.selectors';
 import {getProfileTC} from '../../redux/profile-reducer/profile-reducer';
-import {logOut} from '../../redux/auth-reducer/auth-reducer';
+import {logOutTC} from '../../redux/auth-reducer/auth-reducer';
+import {Button} from '@material-ui/core';
+import style from './Profile.module.scss'
+import Typography from '@material-ui/core/Typography';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -13,15 +16,20 @@ const Profile = () => {
     }, [dispatch]);
 
     const handleLogOut = () => {
-        dispatch(logOut())
+        dispatch(logOutTC())
     }
 
     return (
-        <div>
-            <h4>User profile:</h4>
-            <div className="code">
-                {user && <pre className="pre">{JSON.stringify(user, null, 2)}</pre>}
+        <div className={style.container}>
+            <Typography variant="h5" component="h5" gutterBottom>
+                User profile:
+            </Typography>
+            <div className={style.code}>
+                {user && <pre className={style.pre}>{JSON.stringify(user, null, 2)}</pre>}
             </div>
+            <Button variant="contained" color="secondary" onClick={handleLogOut}>
+                Log out
+            </Button>
         </div>
     );
 };
