@@ -9,6 +9,15 @@ const instance = axios.create({
     }
 })
 
+
+const $commonInstance = axios.create({
+    baseURL: 'https://tager.dev.ozitag.com/api',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    }
+})
+
 instance.interceptors.request.use(
     (config) => {
         const token: TokenT = JSON.parse(localStorage.getItem('token') || '{}');
@@ -27,7 +36,7 @@ instance.interceptors.request.use(
 
 const api = {
     logIn: (email: string, password: string) => {
-        return instance.post('/auth/user',
+        return $commonInstance.post('/auth/user',
             JSON.stringify({email, password, clientId: 1})
         )
     },

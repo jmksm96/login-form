@@ -38,6 +38,7 @@ const Login = () => {
 
     return (
         <div className={style.container}>
+            {error && <p className={style.error}>{error.message}</p>}
             <Typography variant="h3" component="h2" gutterBottom>
                 Log in
             </Typography>
@@ -50,14 +51,14 @@ const Login = () => {
                             margin="normal"
                             {...formik.getFieldProps('email')}
                         />
-                        {formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        {formik.errors.email ? <div className = {style.error}>{formik.errors.email}</div> : null}
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps('password')}
                         />
-                        {formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                        {formik.errors.password ? <div className = {style.error}>{formik.errors.password}</div> : null}
                     </FormGroup>
                     <Button variant="contained"
                             color="primary"
