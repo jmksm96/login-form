@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Login from './components/login/Login';
 import Profile from './components/profile/Profile';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import PublicRoute from './components/helpers/PublicRoute';
 import PrivateRoute from './components/helpers/PrivateRoute';
+import Login from './components/login/Login';
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
                 </Route>
                 <div className="App">
                     <PublicRoute path="/login">
-                        <Login/>
+                      <Login/>
                     </PublicRoute>
                     <PrivateRoute path="/profile">
                         <Profile />
