@@ -1,75 +1,73 @@
+import {Button, FormControl, FormGroup, TextField} from '@material-ui/core';
+import {useFormik} from 'formik';
 import React from 'react';
-import 'antd/dist/antd.css'
-import {getAuth} from '../../redux/auth-reducer/auth-selector';
-import {Field, Form, Formik} from 'formik';
-import {Credentials, logInTC} from '../../redux/auth-reducer/auth-reducer';
-import {Button, Typography} from 'antd';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import style from './login.module.scss'
-import {Email, Password} from '../../common/components/Form';
-
+import Typography from '@material-ui/core/Typography';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import {Credentials, logInTC} from '../../redux/auth-reducer/auth-reducer';
+import {getAuth} from '../../redux/auth-reducer/auth-selector';
 
 const Login = () => {
-    const {Title} = Typography;
+
     const dispatch = useDispatch()
-    const {isSubmitting, error} = useSelector(getAuth, shallowEqual)
+    const { isSubmitting, error } = useSelector(getAuth, shallowEqual);
+    const formik = useFormik({
+
+        validate: (values) => {
+            const errors: Partial<Credentials> = {};
+            if (!values.email) {
+                errors.email = 'Required email';
+            } else if (
+                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+            ) {
+                errors.email = 'Invalid email address';
+            }
+            if (!values.password) {
+                errors.password = 'Required password'
+            }
+            return errors;
+        },
+        initialValues: {
+            email: 'user@ozitag.com',
+            password: 'user',
+        },
+        onSubmit: values => {
+            dispatch(logInTC(values.email, values.password))
+        },
+    })
 
     return (
         <div className={style.container}>
-            {error && <p className="error">{error.message}</p>}
-            <Formik
-                initialValues={{
-                    email: 'user@ozitag.com',
-                    password: 'user',
-                }}
-                validate={(values) => {
-                    const errors: Partial<Credentials> = {};
-                    if (!values.email) {
-                        errors.email = 'Required';
-                    } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-                    ) {
-                        errors.email = 'Invalid email address';
-                    }
-                    return errors;
-                }}
-                onSubmit={async (values) => {
-                    dispatch(logInTC(values.email, values.password));
-                }}
-            >
-                {({getFieldProps}) => (
-                    <Form className={style.form}>
-                        <Title level={3}>Log in</Title>
-                        <Field
-                            component={Email}
-                            // name="email"
+            <Typography variant="h3" component="h2" gutterBottom>
+                Log in
+            </Typography>
+            <form onSubmit={formik.handleSubmit}>
+                <FormControl>
+                    <FormGroup>
+                        <TextField
                             type="email"
                             label="Email"
-                            variant="outlined"
-                            {...getFieldProps("email")}
+                            margin="normal"
+                            {...formik.getFieldProps('email')}
                         />
-                        <Field
-                            component={Password}
+                        {formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        <TextField
                             type="password"
                             label="Password"
-                            name="password"
-                            variant="outlined"
+                            margin="normal"
+                            {...formik.getFieldProps('password')}
                         />
-                        <Button type="primary"
-                                htmlType="submit"
-                                disabled={isSubmitting}>
-                            Submit
-                        </Button>
-                    </Form>
-
-                )}
-
-
-            </Formik>
+                        {formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    </FormGroup>
+                    <Button variant="contained"
+                            color="primary"
+                            type="submit">
+                        Submit
+                    </Button>
+                </FormControl>
+            </form>
         </div>
     );
 };
 
-
 export default Login;
-
