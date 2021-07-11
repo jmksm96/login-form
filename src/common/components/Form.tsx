@@ -1,20 +1,22 @@
 import React from 'react';
 import {Form, Input} from 'antd';
 
-export const Email = () => {
+export const Email = (props: any) => {
+    console.log(props);
     return (
 
         <Form
             name="basic"
             labelCol={{span: 8}}
             wrapperCol={{span: 16}}
-            initialValues={{remember: true}}>
+            initialValues={{remember: true}}
+        >
             <Form.Item
                 label="Email"
-                initialValue='user@ozitag.com'
-                name="email"
+                // initialValue='user@ozitag.com'
                 rules={[{required: true, message: 'Please input your username!'}]}>
-                <Input/>
+                <Input
+                    {...props.field}/>
             </Form.Item>
 
         </Form>

@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux'
 import api from '../../api/api'
 
 
@@ -52,11 +53,17 @@ type AuthActionTypes = ReturnType<typeof logInSuccess>
     | ReturnType<typeof logOutFailure>
 
 export type TokenT = {
-    tokenType: string;
-    expiresAt: string;
-    accessToken: string;
-    refreshToken: string;
-    scopes: [];
+    data:
+        {
+            data:
+                {
+                    tokenType: string;
+                    expiresAt: string;
+                    accessToken: string;
+                    refreshToken: string;
+                    scopes: [];
+                }
+        }
 }
 type AuthStateT = {
     isSubmitting: boolean;
@@ -113,7 +120,7 @@ export const logOutFailure = (error: Error | null) => {
 
 //thunks
 export const logInTC = (email: string, password: string) => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         try {
             const user = await api.logIn(email, password)
             dispatch(logInSuccess(user))
@@ -126,7 +133,7 @@ export const logInTC = (email: string, password: string) => {
 }
 
 export const logOutTC = () => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         try {
             const response = await api.logOut()
             dispatch(logOutSuccess(response.data))

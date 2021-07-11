@@ -1,5 +1,6 @@
+import api from '../../api/api'
 import {User} from '../auth-reducer/auth-reducer'
-import api from '../../api/api';
+// import api from '../../api/api';
 
 const initialState: ProfileStateT = {
     loading: false,

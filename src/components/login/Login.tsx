@@ -37,15 +37,16 @@ const Login = () => {
                     dispatch(logInTC(values.email, values.password));
                 }}
             >
-                {({submitForm}) => (
+                {({getFieldProps}) => (
                     <Form className={style.form}>
                         <Title level={3}>Log in</Title>
                         <Field
                             component={Email}
-                            name="email"
+                            // name="email"
                             type="email"
                             label="Email"
                             variant="outlined"
+                            {...getFieldProps("email")}
                         />
                         <Field
                             component={Password}
@@ -56,7 +57,6 @@ const Login = () => {
                         />
                         <Button type="primary"
                                 htmlType="submit"
-                                onClick={submitForm}
                                 disabled={isSubmitting}>
                             Submit
                         </Button>

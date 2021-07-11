@@ -12,7 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const token: TokenT = JSON.parse(localStorage.getItem('token') || '{}');
-        const access_token: string = token.accessToken;
+        const access_token: string = token.data.data.accessToken;
         console.log('access_token', access_token);
 
         if (token) {
