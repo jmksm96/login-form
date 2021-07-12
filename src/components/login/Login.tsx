@@ -1,4 +1,4 @@
-import {Button, FormControl, FormGroup, TextField} from '@material-ui/core';
+import {Button, FormControl, FormGroup, LinearProgress, TextField} from '@material-ui/core';
 import {useFormik} from 'formik';
 import React from 'react';
 import style from './login.module.scss'
@@ -10,7 +10,7 @@ import {getAuth} from '../../redux/auth-reducer/auth-selector';
 const Login = () => {
 
     const dispatch = useDispatch()
-    const { isSubmitting, error } = useSelector(getAuth, shallowEqual);
+    const {isSubmitting, error} = useSelector(getAuth, shallowEqual);
     const formik = useFormik({
 
         validate: (values) => {
@@ -51,21 +51,25 @@ const Login = () => {
                             margin="normal"
                             {...formik.getFieldProps('email')}
                         />
-                        {formik.errors.email ? <div className = {style.error}>{formik.errors.email}</div> : null}
+                        {formik.errors.email ? <div className={style.error}>{formik.errors.email}</div> : null}
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
                             {...formik.getFieldProps('password')}
                         />
-                        {formik.errors.password ? <div className = {style.error}>{formik.errors.password}</div> : null}
+                        {formik.errors.password ? <div className={style.error}>{formik.errors.password}</div> : null}
+                        {isSubmitting && <LinearProgress/>}
                     </FormGroup>
                     <Button variant="contained"
                             color="primary"
-                            type="submit">
+                            type="submit"
+                            disabled={isSubmitting}>
                         Submit
                     </Button>
+
                 </FormControl>
+
             </form>
         </div>
     );

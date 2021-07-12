@@ -1,6 +1,7 @@
 import api from '../../api/api'
 import {User} from '../auth-reducer/auth-reducer'
-// import api from '../../api/api';
+import {Dispatch} from 'redux';
+
 
 const initialState: ProfileStateT = {
     loading: false,
@@ -72,7 +73,7 @@ export const getProfileFailure = (error: Error | null) => {
 //thunks
 
 export const getProfileTC = () => {
-    return async (dispatch: any) => {
+    return async (dispatch: Dispatch) => {
         try {
             const user = await api.getUserProfile()
             dispatch(getProfileSuccess(user.data))

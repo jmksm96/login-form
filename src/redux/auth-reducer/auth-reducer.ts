@@ -88,7 +88,7 @@ export const logIn = (credentials: Credentials) => {
     } as const;
 }
 
-export const logInSuccess = (user: any) => {
+export const logInSuccess = (user: TokenT) => {
     return {
         type: 'LOGIN-SUCCESS',
         payload: user
