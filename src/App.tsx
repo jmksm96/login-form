@@ -11,7 +11,7 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/login-form" exact>
+                <Route path={['/login-form', '/']} exact>
                     <Redirect to="/login/"/>
                 </Route>
                 <div className="App">
