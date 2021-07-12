@@ -11,15 +11,15 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact>
-                    <Redirect to="/login" />
+                <Route path="/login-form" exact>
+                    <Redirect to="/login/"/>
                 </Route>
                 <div className="App">
                     <PublicRoute path="/login">
-                      <Login/>
+                        <Login/>
                     </PublicRoute>
                     <PrivateRoute path="/profile">
-                        <Profile />
+                        <Profile/>
                     </PrivateRoute>
                 </div>
             </Switch>
